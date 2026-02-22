@@ -1,145 +1,804 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <title>Miexo Tech - Giải pháp phần mềm & tự động hóa</title>
-  <meta name="description" content="Miexo Tech chuyên thiết kế phần mềm theo yêu cầu, thiết bị điện tử và giải pháp nhà thông minh, tự động hóa gia đình.">
-  <meta name="keywords" content="miexo, miexo tech, phần mềm theo yêu cầu, smart home, tự động hóa, thiết bị điện tử">
-  <meta name="robots" content="index, follow">
-  <meta name="author" content="Miexo Tech">
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Miexo Tech - Thiết bị điện tử & Giải pháp phần mềm</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <title>Miexo Tech – Tự động hóa & Giải pháp thông minh</title>
+  <meta name="description" content="Miexo Tech chuyên thiết kế phần mềm theo yêu cầu, thiết bị điện tử và giải pháp nhà thông minh, tự động hóa gia đình.">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
-    :root{
-      --primary:#0f172a;
-      --accent:#2563eb;
-      --light:#f8fafc;
-      --gray:#64748b;
-      --card:#ffffff;
+    :root {
+      --bg: #060c18;
+      --surface: #0b1628;
+      --border: rgba(99,179,255,0.11);
+      --accent: #3b82f6;
+      --accent2: #06b6d4;
+      --gold: #f59e0b;
+      --text: #dde8f8;
+      --text-dim: #9eb3cf;
+      --card: rgba(11,22,40,0.85);
     }
-    *{box-sizing:border-box;margin:0;padding:0;font-family:'Inter',sans-serif}
-    body{background:var(--light);color:var(--primary);line-height:1.6}
-    header{background:linear-gradient(135deg,#0f172a,#1e3a8a);color:white;padding:70px 20px;text-align:center}
-    header h1{font-size:42px;margin-bottom:10px}
-    header p{font-size:18px;color:#e2e8f0}
-    nav{background:white;box-shadow:0 2px 10px rgba(0,0,0,.08);position:sticky;top:0;z-index:10}
-    nav ul{display:flex;justify-content:center;list-style:none}
-    nav li{padding:15px 20px}
-    nav a{text-decoration:none;color:var(--primary);font-weight:600}
-    nav a:hover{color:var(--accent)}
-    .container{max-width:1100px;margin:auto;padding:60px 20px}
-    h2{font-size:32px;margin-bottom:25px;text-align:center}
-    .services{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:25px}
-    .card{background:var(--card);padding:25px;border-radius:16px;box-shadow:0 10px 20px rgba(0,0,0,.07);transition:.3s}
-    .card:hover{transform:translateY(-6px)}
-    .card h3{margin-bottom:10px;color:var(--accent)}
-    .about{text-align:center;max-width:750px;margin:auto}
-    .features{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:20px;margin-top:30px}
-    .feature{background:white;padding:18px;border-radius:14px;box-shadow:0 6px 16px rgba(0,0,0,.06)}
-    .contact{background:#0f172a;color:white;text-align:center;border-radius:18px;padding:40px}
-    .contact p{margin:10px 0;color:#cbd5f5}
-    footer{margin-top:60px;background:#020617;color:#94a3b8;text-align:center;padding:20px;font-size:14px}
-    .btn{display:inline-block;margin-top:15px;padding:12px 22px;background:var(--accent);color:white;border-radius:8px;text-decoration:none;font-weight:600}
-    .btn:hover{background:#1d4ed8}
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      font-weight: 400;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* Background decorations */
+    .bg-grid {
+      position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      background-image:
+        linear-gradient(rgba(59,130,246,0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(59,130,246,0.035) 1px, transparent 1px);
+      background-size: 56px 56px;
+    }
+    .orb {
+      position: fixed; border-radius: 50%;
+      filter: blur(90px); pointer-events: none; z-index: 0;
+    }
+    .orb-1 {
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(59,130,246,0.16), transparent 70%);
+      top: -180px; left: -160px;
+      animation: driftA 20s ease-in-out infinite alternate;
+    }
+    .orb-2 {
+      width: 420px; height: 420px;
+      background: radial-gradient(circle, rgba(6,182,212,0.10), transparent 70%);
+      bottom: -100px; right: -80px;
+      animation: driftB 25s ease-in-out infinite alternate;
+    }
+    @keyframes driftA { to { transform: translate(60px, 50px); } }
+    @keyframes driftB { to { transform: translate(-50px, -60px); } }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 48px;
+      height: 60px;
+      background: rgba(6,12,24,0.8);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-family: 'Nunito', sans-serif;
+      font-weight: 800; font-size: 20px;
+      letter-spacing: 0.06em;
+      background: linear-gradient(120deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .nav-links { display: flex; gap: 28px; list-style: none; align-items: center; }
+    .nav-links a {
+      text-decoration: none; color: var(--text-dim);
+      font-size: 14px; font-weight: 500;
+      transition: color 0.25s;
+    }
+    .nav-links a:hover { color: var(--text); }
+    .nav-cta {
+      padding: 8px 20px !important;
+      background: var(--accent) !important;
+      color: #fff !important;
+      border-radius: 6px;
+      font-weight: 600 !important;
+      transition: all 0.25s !important;
+    }
+    .nav-cta:hover { background: #2563eb !important; box-shadow: 0 6px 20px rgba(59,130,246,0.4); }
+
+    .nav-toggle {
+      display: none; flex-direction: column; gap: 5px; cursor: pointer;
+      padding: 4px; background: none; border: none;
+    }
+    .nav-toggle span {
+      display: block; width: 22px; height: 2px;
+      background: var(--text-dim); border-radius: 2px;
+      transition: all 0.3s;
+    }
+
+    .nav-mobile {
+      display: none; position: fixed;
+      top: 60px; left: 0; right: 0;
+      background: rgba(6,12,24,0.97);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      padding: 16px 24px 24px;
+      flex-direction: column; gap: 0;
+      z-index: 199;
+    }
+    .nav-mobile.open { display: flex; }
+    .nav-mobile a {
+      text-decoration: none; color: var(--text-dim);
+      font-size: 16px; font-weight: 500;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--border);
+      transition: color 0.2s;
+    }
+    .nav-mobile a:hover { color: var(--text); }
+    .nav-mobile .mob-cta {
+      margin-top: 14px;
+      display: block; text-align: center;
+      background: var(--accent); color: #fff !important;
+      padding: 14px; border-radius: 8px; font-weight: 700;
+      font-size: 15px; border-bottom: none !important;
+    }
+
+    /* COMMON */
+    .wrap { max-width: 1080px; margin: 0 auto; padding: 0 40px; }
+    section { position: relative; z-index: 1; }
+
+    .tag {
+      display: inline-block;
+      font-size: 11px; font-weight: 600;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 10px;
+    }
+    .sec-title {
+      font-family: 'Nunito', sans-serif;
+      font-size: clamp(26px, 3.5vw, 40px);
+      font-weight: 800; line-height: 1.15;
+      letter-spacing: -0.01em; margin-bottom: 12px;
+    }
+    .sec-sub {
+      font-size: 15px; color: var(--text-dim);
+      line-height: 1.7; max-width: 520px;
+    }
+
+    .sep {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border), transparent);
+      margin: 0 40px; position: relative; z-index: 1;
+    }
+
+    .reveal { opacity: 0; transform: translateY(22px); transition: opacity 0.65s ease, transform 0.65s ease; }
+    .reveal.in { opacity: 1; transform: translateY(0); }
+
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 13px 28px; border-radius: 8px;
+      font-size: 14px; font-weight: 600;
+      text-decoration: none; transition: all 0.25s;
+      font-family: 'Inter', sans-serif;
+    }
+    .btn-blue { background: var(--accent); color: #fff; }
+    .btn-blue:hover { background: #2563eb; transform: translateY(-2px); box-shadow: 0 10px 28px rgba(59,130,246,0.4); }
+    .btn-ghost { border: 1px solid var(--border); color: var(--text); background: rgba(255,255,255,0.03); }
+    .btn-ghost:hover { border-color: rgba(59,130,246,0.35); background: rgba(59,130,246,0.05); }
+
+    /* HERO */
+    #hero {
+      min-height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      text-align: center; padding: 100px 24px 72px;
+    }
+    .hero-inner { max-width: 760px; }
+
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 7px 16px;
+      border: 1px solid rgba(59,130,246,0.3);
+      border-radius: 100px;
+      font-size: 12px; font-weight: 500;
+      letter-spacing: 0.05em;
+      color: var(--accent2); margin-bottom: 28px;
+      animation: fadeUp 0.7s ease both;
+    }
+    .hero-badge .dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--accent2);
+      animation: blink 2s ease infinite;
+    }
+    @keyframes blink { 0%,100%{opacity:1;} 50%{opacity:0.3;} }
+
+    .hero-h1 {
+      font-family: 'Nunito', sans-serif;
+      font-size: clamp(36px, 6vw, 68px);
+      font-weight: 800; line-height: 1.1;
+      letter-spacing: -0.015em;
+      margin-bottom: 20px;
+      animation: fadeUp 0.7s 0.1s ease both;
+    }
+    .hero-h1 .blue {
+      background: linear-gradient(120deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .hero-h1 .yellow {
+      background: linear-gradient(120deg, #f59e0b, #fde68a);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+
+    .hero-p {
+      font-size: 16px; color: var(--text-dim);
+      max-width: 540px; margin: 0 auto 32px;
+      animation: fadeUp 0.7s 0.18s ease both;
+    }
+    .hero-btns {
+      display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;
+      animation: fadeUp 0.7s 0.26s ease both;
+    }
+
+    .hero-stats {
+      display: grid; grid-template-columns: repeat(3,1fr);
+      gap: 1px; background: var(--border);
+      border: 1px solid var(--border); border-radius: 14px;
+      margin-top: 52px; overflow: hidden;
+      animation: fadeUp 0.7s 0.34s ease both;
+    }
+    .hstat {
+      padding: 20px 16px; text-align: center;
+      background: rgba(11,22,40,0.7); backdrop-filter: blur(8px);
+    }
+    .hstat-n {
+      font-family: 'Nunito', sans-serif;
+      font-size: 28px; font-weight: 800;
+      background: linear-gradient(120deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .hstat-l { font-size: 12px; color: var(--text-dim); margin-top: 2px; }
+
+    @keyframes fadeUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
+
+    .scroll-hint {
+      position: absolute; bottom: 28px; left: 50%; transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: 6px;
+      color: var(--text-dim); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
+      animation: fadeUp 0.7s 0.6s ease both;
+    }
+    .scroll-bar {
+      width: 1px; height: 32px;
+      background: linear-gradient(to bottom, transparent, var(--accent));
+      animation: scr 2s ease-in-out infinite;
+    }
+    @keyframes scr { 0%{opacity:0;transform:scaleY(0) translateY(-8px);} 50%{opacity:1;transform:scaleY(1);} 100%{opacity:0;transform:scaleY(0) translateY(8px);} }
+
+    /* ABOUT */
+    #about .wrap {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 64px; align-items: center; padding-top: 80px; padding-bottom: 80px;
+    }
+    .about-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 18px; padding: 28px;
+      backdrop-filter: blur(12px); position: relative;
+    }
+    .about-tag-float {
+      position: absolute; top: -14px; right: 20px;
+      background: var(--gold); color: #000;
+      font-family: 'Nunito', sans-serif; font-weight: 700;
+      font-size: 11px; padding: 5px 14px; border-radius: 100px;
+    }
+    .icon-matrix {
+      display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; margin-bottom: 18px;
+    }
+    .ibox {
+      aspect-ratio: 1;
+      background: rgba(59,130,246,0.07);
+      border: 1px solid rgba(59,130,246,0.13);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px;
+    }
+    .mini-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .mini-box {
+      background: rgba(6,182,212,0.05);
+      border: 1px solid rgba(6,182,212,0.12);
+      border-radius: 10px; padding: 14px;
+    }
+    .mini-n { font-family: 'Nunito', sans-serif; font-size: 20px; font-weight: 800; color: var(--accent2); }
+    .mini-l { font-size: 11px; color: var(--text-dim); margin-top: 1px; }
+
+    .pillars { display: flex; flex-direction: column; gap: 18px; margin-top: 28px; }
+    .pillar { display: flex; gap: 14px; align-items: flex-start; }
+    .p-ico {
+      width: 40px; height: 40px; min-width: 40px;
+      background: rgba(59,130,246,0.09);
+      border: 1px solid rgba(59,130,246,0.18);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center; font-size: 18px;
+    }
+    .p-title { font-family: 'Nunito', sans-serif; font-size: 15px; font-weight: 700; margin-bottom: 3px; }
+    .p-desc { font-size: 13px; color: var(--text-dim); line-height: 1.6; }
+
+    /* SERVICES */
+    #services { background: linear-gradient(180deg, var(--bg) 0%, var(--surface) 50%, var(--bg) 100%); }
+    #services .wrap { padding-top: 80px; padding-bottom: 80px; }
+    .srv-head {
+      display: flex; justify-content: space-between; align-items: flex-end;
+      margin-bottom: 36px; gap: 20px; flex-wrap: wrap;
+    }
+    .srv-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .srv-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 16px; padding: 28px 24px 60px;
+      position: relative; overflow: hidden;
+      transition: transform 0.3s, border-color 0.3s;
+      cursor: default;
+    }
+    .srv-card::before {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(59,130,246,0.06), transparent 55%);
+      opacity: 0; transition: opacity 0.35s;
+    }
+    .srv-card:hover { transform: translateY(-5px); border-color: rgba(59,130,246,0.28); }
+    .srv-card:hover::before { opacity: 1; }
+    .srv-num { font-size: 11px; font-weight: 600; letter-spacing: 0.14em; color: var(--accent); margin-bottom: 16px; }
+    .srv-ico { font-size: 30px; margin-bottom: 14px; display: block; }
+    .srv-title { font-family: 'Nunito', sans-serif; font-size: 17px; font-weight: 700; margin-bottom: 8px; }
+    .srv-desc { font-size: 13px; color: var(--text-dim); line-height: 1.65; }
+    .srv-arr {
+      position: absolute; bottom: 22px; right: 22px;
+      width: 32px; height: 32px;
+      border: 1px solid var(--border); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px; color: var(--text-dim);
+      transition: all 0.3s;
+    }
+    .srv-card:hover .srv-arr { background: var(--accent); border-color: var(--accent); color: #fff; transform: rotate(-45deg); }
+    .srv-card.hi { background: linear-gradient(135deg, rgba(59,130,246,0.13), rgba(6,182,212,0.06)); border-color: rgba(59,130,246,0.25); }
+
+    /* SOLUTIONS */
+    #solutions .wrap {
+      display: grid; grid-template-columns: 340px 1fr;
+      gap: 64px; padding-top: 80px; padding-bottom: 80px; align-items: start;
+    }
+    .sol-sticky { position: sticky; top: 80px; }
+    .sol-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .sol-item {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 18px 16px;
+      display: flex; align-items: flex-start; gap: 12px;
+      transition: all 0.25s; backdrop-filter: blur(6px);
+    }
+    .sol-item:hover { border-color: rgba(59,130,246,0.28); background: rgba(59,130,246,0.04); transform: translateX(3px); }
+    .sol-ico {
+      width: 36px; height: 36px; min-width: 36px;
+      background: rgba(59,130,246,0.08); border-radius: 8px;
+      display: flex; align-items: center; justify-content: center; font-size: 18px;
+    }
+    .sol-t strong { display: block; font-size: 13px; font-weight: 600; margin-bottom: 2px; }
+    .sol-t span { font-size: 12px; color: var(--text-dim); }
+
+    /* WHY */
+    #why { background: var(--surface); }
+    #why .wrap { padding-top: 80px; padding-bottom: 80px; }
+    .why-header { text-align: center; margin-bottom: 36px; }
+    .why-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; }
+    .why-card {
+      background: rgba(6,12,24,0.5);
+      border: 1px solid var(--border);
+      border-radius: 16px; padding: 28px 24px;
+      position: relative; overflow: hidden;
+      transition: transform 0.3s, border-color 0.3s;
+    }
+    .why-card:hover { transform: translateY(-4px); border-color: rgba(59,130,246,0.28); }
+    .why-card::after {
+      content: ''; position: absolute; bottom: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      transform: scaleX(0); transform-origin: left; transition: transform 0.4s;
+    }
+    .why-card:hover::after { transform: scaleX(1); }
+    .why-ico { font-size: 28px; margin-bottom: 14px; }
+    .why-t { font-family: 'Nunito', sans-serif; font-size: 16px; font-weight: 700; margin-bottom: 8px; }
+    .why-d { font-size: 13px; color: var(--text-dim); line-height: 1.65; }
+
+    /* CONTACT */
+    #contact { padding: 80px 0; }
+    .contact-box { max-width: 1080px; margin: 0 auto; padding: 0 40px; }
+    .contact-inner {
+      background: linear-gradient(135deg, rgba(59,130,246,0.11), rgba(6,182,212,0.05));
+      border: 1px solid rgba(59,130,246,0.22);
+      border-radius: 24px; padding: 60px 52px;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 52px; align-items: center;
+      position: relative; overflow: hidden;
+    }
+    .contact-inner::before {
+      content: ''; position: absolute; top: -80px; right: -80px;
+      width: 280px; height: 280px;
+      background: radial-gradient(circle, rgba(59,130,246,0.14), transparent 70%);
+      border-radius: 50%;
+    }
+    .ct-title {
+      font-family: 'Nunito', sans-serif;
+      font-size: clamp(24px, 3vw, 36px); font-weight: 800; line-height: 1.15; margin-bottom: 12px;
+    }
+    .ct-sub { font-size: 14px; color: var(--text-dim); margin-bottom: 28px; }
+    .ct-info { display: flex; flex-direction: column; gap: 14px; }
+    .ct-row { display: flex; align-items: center; gap: 12px; }
+    .ct-ico {
+      width: 40px; height: 40px; min-width: 40px;
+      background: rgba(59,130,246,0.09);
+      border: 1px solid rgba(59,130,246,0.18);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center; font-size: 16px;
+    }
+    .ct-text strong { display: block; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-dim); margin-bottom: 1px; }
+    .ct-text { font-size: 14px; }
+
+    /* FOOTER */
+    footer {
+      position: relative; z-index: 1;
+      border-top: 1px solid var(--border);
+      padding: 24px 48px;
+      display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;
+    }
+    .ft-logo {
+      font-family: 'Nunito', sans-serif; font-weight: 800; font-size: 17px;
+      letter-spacing: 0.06em;
+      background: linear-gradient(120deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    footer p { font-size: 13px; color: var(--text-dim); }
+
+    /* ═══ RESPONSIVE ═══ */
+
+    /* Tablet */
+    @media (max-width: 1024px) {
+      .wrap { padding: 0 28px; }
+      .sep { margin: 0 28px; }
+      nav { padding: 0 28px; }
+      footer { padding: 20px 28px; }
+      #about .wrap { grid-template-columns: 1fr; gap: 40px; padding-top: 64px; padding-bottom: 64px; }
+      .about-card { max-width: 480px; }
+      .srv-grid { grid-template-columns: 1fr 1fr; }
+      #solutions .wrap { grid-template-columns: 1fr; gap: 40px; padding-top: 64px; padding-bottom: 64px; }
+      .sol-sticky { position: static; }
+      .why-grid { grid-template-columns: 1fr 1fr; }
+      .contact-inner { padding: 44px 36px; }
+    }
+
+    /* Mobile */
+    @media (max-width: 768px) {
+      nav { padding: 0 20px; }
+      .nav-links { display: none; }
+      .nav-toggle { display: flex; }
+      .wrap { padding: 0 20px; }
+      .sep { margin: 0 20px; }
+      .contact-box { padding: 0 20px; }
+
+      #hero { padding: 88px 20px 60px; min-height: 100svh; }
+      .hero-h1 { font-size: clamp(30px, 9vw, 48px); }
+      .hero-p { font-size: 14px; }
+      .hero-btns { flex-direction: column; align-items: center; }
+      .hero-btns .btn { width: 100%; max-width: 290px; justify-content: center; }
+      .hero-stats { margin-top: 36px; }
+      .hstat { padding: 16px 12px; }
+      .hstat-n { font-size: 24px; }
+      .scroll-hint { display: none; }
+
+      #about .wrap { grid-template-columns: 1fr; gap: 28px; padding: 52px 20px; }
+      .about-card { max-width: 100%; }
+
+      #services .wrap { padding: 52px 20px; }
+      .srv-head { flex-direction: column; align-items: flex-start; margin-bottom: 24px; }
+      .srv-head .sec-sub { text-align: left; }
+      .srv-grid { grid-template-columns: 1fr; gap: 12px; }
+
+      #solutions .wrap { grid-template-columns: 1fr; gap: 28px; padding: 52px 20px; }
+      .sol-grid { grid-template-columns: 1fr; }
+
+      #why .wrap { padding: 52px 20px; }
+      .why-grid { grid-template-columns: 1fr; gap: 12px; }
+
+      #contact { padding: 52px 0; }
+      .contact-inner { grid-template-columns: 1fr; gap: 32px; padding: 32px 24px; }
+
+      footer { padding: 20px; flex-direction: column; text-align: center; }
+    }
+
+    /* Very small mobile */
+    @media (max-width: 380px) {
+      .hero-h1 { font-size: 28px; }
+      .hero-stats { grid-template-columns: 1fr; }
+    }
   </style>
 </head>
 <body>
 
-<header>
-  <h1>MIEXO TECH</h1>
-  <p>Thiết bị điện tử • Phần mềm theo yêu cầu • Giải pháp nhà thông minh</p>
-  <div style="margin-top:20px">
-    <a class="btn" href="#contact">Yêu cầu tư vấn</a>
-  </div>
-</header>
+<div class="bg-grid"></div>
+<div class="orb orb-1"></div>
+<div class="orb orb-2"></div>
 
+<!-- NAV -->
 <nav>
-  <ul>
+  <div class="nav-logo">MIEXO TECH</div>
+  <ul class="nav-links">
     <li><a href="#about">Giới thiệu</a></li>
     <li><a href="#services">Dịch vụ</a></li>
     <li><a href="#solutions">Giải pháp</a></li>
-    <li><a href="#contact">Liên hệ</a></li>
+    <li><a href="#contact" class="nav-cta">Liên hệ</a></li>
   </ul>
+  <button class="nav-toggle" onclick="toggleMenu()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
 
-<section id="about" class="container">
-  <h2>Về chúng tôi</h2>
-  <div class="about">
-    <p>
-      Miexo Tech là công ty chuyên cung cấp thiết bị điện tử, phát triển phần mềm theo yêu cầu và triển khai các giải pháp tự động hóa thông minh cho gia đình và doanh nghiệp.
-      Chúng tôi hướng tới việc giúp khách hàng tối ưu hóa vận hành, tiết kiệm chi phí và nâng cao trải nghiệm sử dụng công nghệ trong cuộc sống hằng ngày.
+<div class="nav-mobile" id="mobileNav">
+  <a href="#about" onclick="closeMenu()">Giới thiệu</a>
+  <a href="#services" onclick="closeMenu()">Dịch vụ</a>
+  <a href="#solutions" onclick="closeMenu()">Giải pháp</a>
+  <a href="#contact" class="mob-cta" onclick="closeMenu()">Liên hệ ngay</a>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-inner">
+    <div class="hero-badge">
+      <span class="dot"></span>
+      Nghệ An · Việt Nam · Sẵn sàng tư vấn
+    </div>
+    <h1 class="hero-h1">
+      Công nghệ <span class="blue">thông minh</span><br>
+      cho cuộc sống <span class="yellow">hiện đại</span>
+    </h1>
+    <p class="hero-p">
+      Miexo Tech cung cấp thiết bị điện tử, phần mềm tùy chỉnh và giải pháp tự động hóa toàn diện cho gia đình và doanh nghiệp Việt Nam.
     </p>
-  </div>
-  <div class="features" style="margin-top:40px">
-    <div class="feature"><b>Uy tín</b><br>Cam kết sản phẩm chất lượng và hỗ trợ kỹ thuật lâu dài.</div>
-    <div class="feature"><b>Tùy chỉnh</b><br>Thiết kế hệ thống và phần mềm theo đúng nhu cầu sử dụng thực tế.</div>
-    <div class="feature"><b>Tối ưu chi phí</b><br>Giải pháp hiệu quả, tiết kiệm chi phí vận hành.</div>
-  </div>
-</section>
-
-<section id="services" class="container">
-  <h2>Dịch vụ của chúng tôi</h2>
-  <div class="services">
-    <div class="card">
-      <h3>Bán thiết bị điện tử</h3>
-      <p>Cung cấp linh kiện, module IoT, cảm biến, bộ điều khiển, vi điều khiển, thiết bị nhúng và phụ kiện điện tử chính hãng.</p>
+    <div class="hero-btns">
+      <a href="#contact" class="btn btn-blue">🚀 Tư vấn miễn phí</a>
+      <a href="#services" class="btn btn-ghost">Xem dịch vụ ↓</a>
     </div>
-    <div class="card">
-      <h3>Thiết kế phần mềm theo yêu cầu</h3>
-      <p>Phát triển phần mềm desktop, web, hệ thống điều khiển nhúng và ứng dụng chuyên dụng theo nhu cầu từng khách hàng.</p>
-    </div>
-    <div class="card">
-      <h3>Tư vấn & tích hợp hệ thống</h3>
-      <p>Tư vấn kiến trúc hệ thống, tích hợp thiết bị, xây dựng giải pháp IoT và tự động hóa cho nhà ở và doanh nghiệp.</p>
+    <div class="hero-stats">
+      <div class="hstat">
+        <div class="hstat-n">100+</div>
+        <div class="hstat-l">Dự án hoàn thành</div>
+      </div>
+      <div class="hstat">
+        <div class="hstat-n">5★</div>
+        <div class="hstat-l">Đánh giá khách hàng</div>
+      </div>
+      <div class="hstat">
+        <div class="hstat-n">24/7</div>
+        <div class="hstat-l">Hỗ trợ kỹ thuật</div>
+      </div>
     </div>
   </div>
-</section>
-
-<section id="solutions" class="container">
-  <h2>Giải pháp tự động hóa gia đình</h2>
-  <div class="features">
-    <div class="feature">Điều khiển đèn từ xa bằng điện thoại</div>
-    <div class="feature">Tự động bật/tắt thiết bị theo lịch</div>
-    <div class="feature">Giám sát camera & cảm biến an ninh</div>
-    <div class="feature">Cảnh báo cháy, rò gas, đột nhập</div>
-    <div class="feature">Điều khiển máy lạnh, quạt, bình nóng lạnh</div>
-    <div class="feature">Theo dõi điện năng tiêu thụ</div>
+  <div class="scroll-hint">
+    <div class="scroll-bar"></div>
+    cuộn xuống
   </div>
 </section>
 
-<section id="contact" class="container">
-  <div class="contact">
-    <h2>Liên hệ</h2>
-    <p>Công ty Miexo Tech</p>
-    <p>Email: trungvovan16@gmail.com</p>
-    <p>Hotline: 0326787890</p>
-    <p>Địa chỉ: Nghệ An, Việt Nam</p>
-    <a class="btn" href="mailto:contact@Miexotech.vn">Gửi email cho chúng tôi</a>
+<div class="sep"></div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="wrap">
+    <div class="reveal">
+      <span class="tag">Về chúng tôi</span>
+      <h2 class="sec-title">Đội ngũ kỹ thuật<br>đam mê công nghệ</h2>
+      <p class="sec-sub">Chúng tôi là kỹ sư và lập trình viên với đam mê tạo ra các giải pháp thực sự hữu ích, giúp khách hàng tối ưu vận hành và nâng cao chất lượng cuộc sống.</p>
+      <div class="pillars">
+        <div class="pillar">
+          <div class="p-ico">✦</div>
+          <div>
+            <div class="p-title">Cam kết chất lượng</div>
+            <div class="p-desc">Sản phẩm chất lượng cao với hỗ trợ kỹ thuật lâu dài sau khi triển khai.</div>
+          </div>
+        </div>
+        <div class="pillar">
+          <div class="p-ico">⚙️</div>
+          <div>
+            <div class="p-title">Tùy chỉnh hoàn toàn</div>
+            <div class="p-desc">Mỗi hệ thống thiết kế riêng, đáp ứng chính xác nhu cầu và ngân sách của bạn.</div>
+          </div>
+        </div>
+        <div class="pillar">
+          <div class="p-ico">💡</div>
+          <div>
+            <div class="p-title">Chi phí tối ưu</div>
+            <div class="p-desc">Giải pháp hiệu quả, tiết kiệm chi phí vận hành mà không đánh đổi chất lượng.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="reveal" style="transition-delay:0.15s">
+      <div class="about-card">
+        <div class="about-tag-float">⚡ IoT & Embedded</div>
+        <div class="icon-matrix">
+          <div class="ibox">🔌</div><div class="ibox">📱</div><div class="ibox">🖥️</div>
+          <div class="ibox">📡</div><div class="ibox">🤖</div><div class="ibox">🔐</div>
+          <div class="ibox">⚡</div><div class="ibox">🌐</div><div class="ibox">🛠️</div>
+        </div>
+        <p style="font-size:12px;color:var(--text-dim);text-align:center;margin-bottom:16px;">Từ linh kiện đến hệ thống hoàn chỉnh</p>
+        <div class="mini-row">
+          <div class="mini-box"><div class="mini-n">IoT</div><div class="mini-l">Kết nối thiết bị</div></div>
+          <div class="mini-box"><div class="mini-n">Nhúng</div><div class="mini-l">Hệ thống nhúng</div></div>
+          <div class="mini-box"><div class="mini-n">Web</div><div class="mini-l">Ứng dụng web</div></div>
+          <div class="mini-box"><div class="mini-n">Auto</div><div class="mini-l">Tự động hóa</div></div>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
-<section class="container">
-  <h2>Tại sao chọn Miexo Tech?</h2>
-  <div class="services">
-    <div class="card">
-      <h3>Kinh nghiệm thực tế</h3>
-      <p>Đội ngũ có kinh nghiệm trong lĩnh vực hệ thống nhúng, IoT, kiểm thử hệ thống và tự động hóa.</p>
+<div class="sep"></div>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="wrap">
+    <div class="srv-head">
+      <div class="reveal">
+        <span class="tag">Dịch vụ</span>
+        <h2 class="sec-title">Giải pháp toàn diện<br>cho mọi nhu cầu</h2>
+      </div>
+      <p class="reveal sec-sub" style="max-width:240px;text-align:right;transition-delay:0.1s">
+        Từ phần cứng đến phần mềm — chúng tôi cung cấp trọn gói.
+      </p>
     </div>
-    <div class="card">
-      <h3>Hỗ trợ nhanh chóng</h3>
-      <p>Hỗ trợ kỹ thuật từ xa, bảo trì và nâng cấp hệ thống sau khi triển khai.</p>
-    </div>
-    <div class="card">
-      <h3>Giải pháp trọn gói</h3>
-      <p>Từ phần cứng, phần mềm đến triển khai và hướng dẫn sử dụng.</p>
+    <div class="srv-grid">
+      <div class="srv-card reveal" style="transition-delay:0.1s">
+        <div class="srv-num">01</div>
+        <span class="srv-ico">🔩</span>
+        <div class="srv-title">Thiết bị điện tử</div>
+        <div class="srv-desc">Cung cấp linh kiện, module IoT, cảm biến, vi điều khiển và phụ kiện điện tử chính hãng từ các thương hiệu uy tín.</div>
+        <div class="srv-arr">→</div>
+      </div>
+      <div class="srv-card hi reveal" style="transition-delay:0.2s">
+        <div class="srv-num">02</div>
+        <span class="srv-ico">💻</span>
+        <div class="srv-title">Phần mềm theo yêu cầu</div>
+        <div class="srv-desc">Phát triển phần mềm desktop, ứng dụng web, hệ thống điều khiển nhúng hoàn toàn theo yêu cầu của bạn.</div>
+        <div class="srv-arr">→</div>
+      </div>
+      <div class="srv-card reveal" style="transition-delay:0.3s">
+        <div class="srv-num">03</div>
+        <span class="srv-ico">🏗️</span>
+        <div class="srv-title">Tư vấn & tích hợp</div>
+        <div class="srv-desc">Tư vấn kiến trúc, tích hợp thiết bị, xây dựng giải pháp IoT và tự động hóa cho nhà ở và doanh nghiệp.</div>
+        <div class="srv-arr">→</div>
+      </div>
     </div>
   </div>
 </section>
 
+<div class="sep"></div>
+
+<!-- SOLUTIONS -->
+<section id="solutions">
+  <div class="wrap">
+    <div class="sol-sticky reveal">
+      <span class="tag">Nhà thông minh</span>
+      <h2 class="sec-title">Tự động hóa<br>ngôi nhà bạn</h2>
+      <p class="sec-sub" style="margin-bottom:24px;">Biến ngôi nhà thành không gian sống thông minh với hệ thống điều khiển tích hợp, an toàn và tiết kiệm năng lượng.</p>
+      <a href="#contact" class="btn btn-blue">Tư vấn ngay</a>
+    </div>
+    <div class="sol-grid">
+      <div class="sol-item reveal" style="transition-delay:0.05s">
+        <div class="sol-ico">💡</div>
+        <div class="sol-t"><strong>Điều khiển đèn từ xa</strong><span>Bật/tắt đèn qua điện thoại bất kỳ đâu</span></div>
+      </div>
+      <div class="sol-item reveal" style="transition-delay:0.1s">
+        <div class="sol-ico">⏰</div>
+        <div class="sol-t"><strong>Lên lịch tự động</strong><span>Thiết bị tự bật/tắt theo lịch hẹn giờ</span></div>
+      </div>
+      <div class="sol-item reveal" style="transition-delay:0.15s">
+        <div class="sol-ico">📹</div>
+        <div class="sol-t"><strong>Camera & an ninh</strong><span>Giám sát 24/7 từ smartphone</span></div>
+      </div>
+      <div class="sol-item reveal" style="transition-delay:0.2s">
+        <div class="sol-ico">🚨</div>
+        <div class="sol-t"><strong>Cảnh báo thông minh</strong><span>Phát hiện cháy, rò gas, đột nhập</span></div>
+      </div>
+      <div class="sol-item reveal" style="transition-delay:0.25s">
+        <div class="sol-ico">❄️</div>
+        <div class="sol-t"><strong>Điều hòa không khí</strong><span>Điều khiển máy lạnh, quạt, bình nước nóng</span></div>
+      </div>
+      <div class="sol-item reveal" style="transition-delay:0.3s">
+        <div class="sol-ico">⚡</div>
+        <div class="sol-t"><strong>Quản lý năng lượng</strong><span>Theo dõi và tiết kiệm điện năng tiêu thụ</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="sep"></div>
+
+<!-- WHY -->
+<section id="why">
+  <div class="wrap">
+    <div class="why-header reveal">
+      <span class="tag">Tại sao chọn chúng tôi</span>
+      <h2 class="sec-title">Miexo Tech khác biệt như thế nào?</h2>
+    </div>
+    <div class="why-grid">
+      <div class="why-card reveal" style="transition-delay:0.1s">
+        <div class="why-ico">🧠</div>
+        <div class="why-t">Kinh nghiệm thực tế</div>
+        <div class="why-d">Đội ngũ có kinh nghiệm trong hệ thống nhúng, IoT, kiểm thử và tự động hóa công nghiệp.</div>
+      </div>
+      <div class="why-card reveal" style="transition-delay:0.2s">
+        <div class="why-ico">⚡</div>
+        <div class="why-t">Hỗ trợ 24/7</div>
+        <div class="why-d">Hỗ trợ kỹ thuật từ xa nhanh chóng, bảo trì và nâng cấp sau triển khai không giới hạn.</div>
+      </div>
+      <div class="why-card reveal" style="transition-delay:0.3s">
+        <div class="why-ico">📦</div>
+        <div class="why-t">Giải pháp trọn gói</div>
+        <div class="why-d">Từ phần cứng, phần mềm đến triển khai và hướng dẫn sử dụng — một đối tác duy nhất.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-box">
+    <div class="contact-inner reveal">
+      <div>
+        <span class="tag">Liên hệ</span>
+        <h2 class="ct-title">Sẵn sàng bắt đầu<br>dự án của bạn?</h2>
+        <p class="ct-sub">Chia sẻ ý tưởng với chúng tôi. Miễn phí tư vấn và báo giá chi tiết trong 24 giờ.</p>
+        <a href="mailto:trungvovan16@gmail.com" class="btn btn-blue">✉️ Gửi email ngay</a>
+      </div>
+      <div class="ct-info">
+        <div class="ct-row">
+          <div class="ct-ico">📧</div>
+          <div class="ct-text"><strong>Email</strong>trungvovan16@gmail.com</div>
+        </div>
+        <div class="ct-row">
+          <div class="ct-ico">📞</div>
+          <div class="ct-text"><strong>Hotline</strong>0326 787 xxx</div>
+        </div>
+        <div class="ct-row">
+          <div class="ct-ico">📍</div>
+          <div class="ct-text"><strong>Địa chỉ</strong>Nghệ An, Việt Nam</div>
+        </div>
+        <div class="ct-row">
+          <div class="ct-ico">🕐</div>
+          <div class="ct-text"><strong>Giờ làm việc</strong>Thứ 2 – Thứ 7: 8:00 – 18:00</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
 <footer>
-  © 2026 Miexo Tech. All rights reserved.
+  <div class="ft-logo">MIEXO TECH</div>
+  <p>© 2026 Miexo Tech. All rights reserved.</p>
+  <p>Nghệ An · Việt Nam</p>
 </footer>
 
+<script>
+  function toggleMenu() {
+    document.getElementById('mobileNav').classList.toggle('open');
+  }
+  function closeMenu() {
+    document.getElementById('mobileNav').classList.remove('open');
+  }
+  document.addEventListener('click', e => {
+    const nav = document.getElementById('mobileNav');
+    const toggle = document.querySelector('.nav-toggle');
+    if (nav.classList.contains('open') && !nav.contains(e.target) && !toggle.contains(e.target)) {
+      nav.classList.remove('open');
+    }
+  });
+
+  // Scroll reveal
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+  // Nav highlight
+  const secs = document.querySelectorAll('section[id]');
+  const navAs = document.querySelectorAll('.nav-links a');
+  window.addEventListener('scroll', () => {
+    let cur = '';
+    secs.forEach(s => { if (window.scrollY >= s.offsetTop - 80) cur = s.id; });
+    navAs.forEach(a => { a.style.color = a.getAttribute('href') === '#' + cur ? 'var(--text)' : ''; });
+  }, { passive: true });
+</script>
 </body>
 </html>
